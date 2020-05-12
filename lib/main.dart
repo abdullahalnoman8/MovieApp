@@ -1,16 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ninjaid/model/movie.dart';
 
 void main() {
-  runApp(MaterialApp(
+  /*runApp(MaterialApp(
       home: NinjaCard()
-  ));
-}
-class NinjaCard extends StatefulWidget {
-  @override
-  _NinjaCardState createState() => _NinjaCardState();
+  ));*/
+  runApp(MovieApp());
 }
 
+class MovieApp extends StatefulWidget {
+  @override
+  _MovieAppState createState() => _MovieAppState();
+}
+
+class _MovieAppState extends State<MovieApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new ListView(
+      children: <Widget>[
+        ListTile(
+          title: Text(topGun.name),
+          subtitle: Text('Directed by ${topGun.director} in ${topGun.year}'),
+        )
+      ],
+    );
+  }
+}
+
+/*class NinjaCard extends StatefulWidget {
+  @override
+  _NinjaCardState createState() => _NinjaCardState();
+}*/
+
+/*
 class _NinjaCardState extends State<NinjaCard> {
   int ninjaLevel = 0;
   @override
@@ -104,6 +137,7 @@ class _NinjaCardState extends State<NinjaCard> {
     );
   }
 }
+*/
 
 /*class NinjaCard extends StatelessWidget {
   @override
@@ -188,9 +222,3 @@ class _NinjaCardState extends State<NinjaCard> {
     );
   }
 }*/
-
-
-
-
-
-
