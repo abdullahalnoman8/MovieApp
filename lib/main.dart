@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
+import 'package:ninjaid/pages/movie_detail_page.dart';
 
 void main() {
   /*runApp(MaterialApp(
@@ -25,17 +26,28 @@ class _MovieAppState extends State<MovieApp> {
 
 class Home extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new ListView(
-      children: <Widget>[
-        ListTile(
-          title: Text(topGun.name),
-          subtitle: Text('Directed by ${topGun.director} in ${topGun.year}'),
-        )
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          title: Text('Movie App'),
+          backgroundColor: Colors.indigo[500],
+          elevation: 0.0,
+          centerTitle: false,
+        ),
+        body: new ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text(topGun.name),
+              subtitle:
+                  Text('Directed by ${topGun.director} in ${topGun.year}'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MovieDetailPage(topGun)));
+              },
+            )
+          ],
+        ),
+      );
 }
 
 /*class NinjaCard extends StatefulWidget {
