@@ -36,15 +36,16 @@ class Home extends StatelessWidget {
         ),
         body: new ListView(
           children: <Widget>[
-            ListTile(
-              title: Text(topGun.name),
-              subtitle:
-                  Text('Directed by ${topGun.director} in ${topGun.year}'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MovieDetailPage(topGun)));
-              },
-            )
+            for (var movie in [topGun, aBeautifulMind, theImitationGame])
+              ListTile(
+                title: Text(movie.name),
+                subtitle:
+                    Text('Directed by ${movie.director} in ${movie.year}'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MovieDetailPage(movie)));
+                },
+              ),
           ],
         ),
       );
