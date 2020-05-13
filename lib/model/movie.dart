@@ -15,10 +15,10 @@ class Movie {
 }
 
 Movie topGun = Movie(
-    "TopGun",
+    "Top Gun",
     1986,
     "Tony Scott",
-    " As students at the United States Navy's elite fighter weapons school compete "
+    "As students at the United States Navy's elite fighter weapons school compete "
         "to be best in the class, one daring young pilot learns a few things from a"
         " civilian instructor that are not taught in the classroom.",
     "https://m.media-amazon.com/images/M/MV5BZjQxYTA3ODItNzgxMy00N2Y2LWJlZGMtMTR"

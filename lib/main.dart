@@ -25,6 +25,8 @@ class _MovieAppState extends State<MovieApp> {
 }
 
 class Home extends StatelessWidget {
+  final List<Movie> movies = [topGun, aBeautifulMind, theImitationGame];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[300],
@@ -34,19 +36,29 @@ class Home extends StatelessWidget {
           elevation: 0.0,
           centerTitle: false,
         ),
-        body: new ListView(
-          children: <Widget>[
-            for (var movie in [topGun, aBeautifulMind, theImitationGame])
-              ListTile(
-                title: Text(movie.name),
-                subtitle:
-                    Text('Directed by ${movie.director} in ${movie.year}'),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MovieDetailPage(movie)));
-                },
-              ),
-          ],
+        body: new ListView.separated(
+          itemCount: 3,
+          itemBuilder: (context, index) => ListTile(
+            title: Text(movies[index].name),
+            subtitle: Text(
+                'Directed by ${movies[index].director} in ${movies[index].year}'),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MovieDetailPage(movies[index])));
+            },
+            leading: Image.network(movies[index].imageUrl),
+          ),
+          separatorBuilder: (context, index) {
+            return Divider(
+              thickness: 1.0,
+              indent: 0,
+              endIndent: 0,
+              color: ((index + 1) % 2) == 0
+                  ? Colors.grey[350]
+                  : Colors.amberAccent[350],
+              height: 6,
+            );
+          },
         ),
       );
 }
