@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/pages/movie_detail_page.dart';
+import 'package:ninjaid/utilities/movie_db.dart';
 
 void main() {
   /*runApp(MaterialApp(
@@ -59,6 +60,13 @@ class Home extends StatelessWidget {
               height: 6,
             );
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => MovieDB().findMovies('Top Gun'),
+          child: Icon(
+            Icons.add,
+            color: Colors.indigo[300],
+          ),
         ),
       );
 }
