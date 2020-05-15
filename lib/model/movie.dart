@@ -61,6 +61,45 @@ class Movie {
   }
 
   int get id => _imdbId;
+
+  factory Movie.fromJson(dynamic json) {
+    return Movie(
+      actors: json['actors'] as String,
+      awards: json['awards'] as String,
+      boxOffice: json['boxOffice'] as String,
+      country: json['country'] as String,
+      dvd: json['dvd'] as String,
+      genre: json['genre'] as String,
+      language: json['language'] as String,
+      plot: json['plot'] as String,
+      production: json['production'] as String,
+      imdbRating: json['imdbRating'] as String,
+      released: json['released'] as String,
+      rated: json['rated'] as String,
+      metaCore: json['metaCore'] as String,
+      imageUrl: json['imageUrl'] as String,
+      response: json['response'] as String,
+      director: json['director'] as String,
+      imdbVotes: json['imdbVotes'] as String,
+      runTime: json['runTime'] as String,
+      description: json['description'] as String,
+      title: json['title'] as String,
+      type: json['type'] as String,
+      website: json['website'] as String,
+      writer: json['writer'] as String,
+      year: json['year'] as int,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Movie{title: $title, _imdbId: $_imdbId, year: $year, director: $director,'
+        ' description: $description, imageUrl: $imageUrl, rated: $rated, released: $released,'
+        ' runTime: $runTime, genre: $genre, writer: $writer, actors: $actors, plot: $plot, '
+        'language: $language, country: $country, awards: $awards, ratings: $ratings, '
+        'metaCore: $metaCore, imdbRating: $imdbRating, imdbVotes: $imdbVotes, type: $type,'
+        ' dvd: $dvd, boxOffice: $boxOffice, production: $production, website: $website, response: $response}';
+  }
 }
 
 class Rating {
