@@ -13,11 +13,21 @@ class MovieDB {
     return _movieDB;
   }
 
-  List<Movie> findMovies(String name) {
-    _httpClient
-        .getUrl(Uri.parse(_url))
-        .then((request) => request.close())
-        .then((response) => response.transform(Utf8Decoder()).listen(print));
+  Future<List<Movie>> searchMovies(String name) async {
+//    await _httpClient
+//        .getUrl(Uri.parse(_url))
+//        .then((request) => request.close())
+//        .then((response) => response.transform(Utf8Decoder()).listen(print));
+
+    var request = await _httpClient.getUrl(Uri.parse('${_url}t=$name'));
+    var response = await request.close();
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      response.transform(Utf8Decoder()).listen(print);
+    } else {
+      print('Unsuccessful Response');
+    }
+
     return List<Movie>();
   }
 }

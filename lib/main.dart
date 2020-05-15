@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/pages/movie_detail_page.dart';
-import 'package:ninjaid/utilities/movie_db.dart';
+import 'package:ninjaid/pages/search_movies.dart';
 
 void main() {
   /*runApp(MaterialApp(
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
         body: new ListView.separated(
           itemCount: 3,
           itemBuilder: (context, index) => ListTile(
-            title: Text(movies[index].name),
+            title: Text(movies[index].title),
             subtitle: Text(
                 'Directed by ${movies[index].director} in ${movies[index].year}'),
             onTap: () {
@@ -62,7 +62,9 @@ class Home extends StatelessWidget {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => MovieDB().findMovies('Top Gun'),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SearchMovie()),
+          ),
           child: Icon(
             Icons.add,
             color: Colors.indigo[300],

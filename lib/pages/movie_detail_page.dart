@@ -12,7 +12,7 @@ class MovieDetailPage extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('${movie.name} Details '),
+        title: Text('${movie.title} Details '),
         backgroundColor: Colors.indigo[500],
         elevation: 0,
       ),
@@ -23,63 +23,61 @@ class MovieDetailPage extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           elevation: 24.0,
-          child: Expanded(
-            child: Column(
+          child: Column(
 //          mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Image.network(movie.imageUrl),
-                Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Image.network(movie.imageUrl),
+              Row(
 //              mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      movie.name,
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        shadows: [
-                          Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 7.0,
-                              color: Colors.grey[600]),
-                        ],
-                      ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    movie.title,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      shadows: [
+                        Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 7.0,
+                            color: Colors.grey[600]),
+                      ],
                     ),
-                    Text(
-                      ' (${movie.year})',
-                      style: TextStyle(
-                          fontStyle: FontStyle.italic, fontSize: 24.0),
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    ' (${movie.year})',
+                    style:
+                        TextStyle(fontStyle: FontStyle.italic, fontSize: 24.0),
+                  ),
+                ],
+              ),
 //            Text(movie.name),
 //            Text('${movie.year}'),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          movie.director,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w300,
-                          ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        movie.director,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
-                      Text(
-                        movie.description,
-                        textAlign: TextAlign.justify,
-                      )
-                    ],
-                  ),
+                    ),
+                    Text(
+                      movie.description,
+                      textAlign: TextAlign.justify,
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
