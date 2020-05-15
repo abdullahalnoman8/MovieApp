@@ -30,6 +30,8 @@ class Movie {
   final String website;
   final String response;
 
+  //TODO Not all parameters should be required.
+
   Movie(
       {@required this.rated,
       @required this.released,
@@ -63,6 +65,7 @@ class Movie {
   int get id => _imdbId;
 
   factory Movie.fromJson(dynamic json) {
+    //TODO Deserialize the Ratings
     return Movie(
       actors: json['actors'] as String,
       awards: json['awards'] as String,
@@ -77,6 +80,7 @@ class Movie {
       released: json['released'] as String,
       rated: json['rated'] as String,
       metaCore: json['metaCore'] as String,
+      //TODO This field is not called "imageUrl" inside the JSON
       imageUrl: json['imageUrl'] as String,
       response: json['response'] as String,
       director: json['director'] as String,
@@ -107,6 +111,7 @@ class Rating {
   final String value;
 
   Rating(this.source, this.value);
+  //TODO Add a way to deserialize Ratings
 }
 
 Movie topGun = Movie(

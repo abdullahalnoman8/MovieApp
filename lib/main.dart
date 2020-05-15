@@ -38,7 +38,12 @@ class Home extends StatelessWidget {
           centerTitle: false,
         ),
         body: new ListView.separated(
+          //TODO Let the itemCount be determined dynamically (e.g. by the length of the list we're using)
           itemCount: 3,
+          //TODO Create a custom MovieListTile, which takes one Movie as
+          // construction parameter and creates a ListTile with a more
+          // information than we currently have.
+          // (/lib/widgets/movie_list_tile.dart)
           itemBuilder: (context, index) => ListTile(
             title: Text(movies[index].title),
             subtitle: Text(
@@ -66,8 +71,7 @@ class Home extends StatelessWidget {
             MaterialPageRoute(builder: (context) => SearchMovie()),
           ),
           child: Icon(
-            Icons.add,
-            color: Colors.indigo[300],
+            Icons.search,
           ),
         ),
       );

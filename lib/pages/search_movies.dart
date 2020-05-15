@@ -29,12 +29,15 @@ class _SearchMovieState extends State<SearchMovie> {
           TextField(
             controller: textEditingController,
           ),
+          //TODO Create a ListView which will shows all the Movies that match our search.
+          //TODO Create a Custom MovieListTile Widget for that purpose. (the same we use in the HomePage)
         ],
       ),
     );
   }
 
   searchMovies() {
+    //TODO Add the movies we've been searching into the movieList
     MovieDB().searchMovies(textEditingController.value.text);
   }
 }
