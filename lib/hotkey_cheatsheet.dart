@@ -21,10 +21,17 @@
       This is especially helpful when combined with the two above commands.
 
 *   [Ctrl] + B:
-      This jumps to the definition of whatever is underneath your cursor at
-      the given moment. If it's a variable it will jump to the Point of
-      declaration, if it's a Type/Class it will jump to the implementation of
-      that class.
+      This jumps to the definition of whatever Identifier is underneath your
+      cursor at the given moment. If it's a variable it will jump to the
+      Point of declaration, if it's a Type/Class it will jump to the
+      implementation of that class. If it's the definition it will show where
+      it's been used.
+
+*   [Ctrl] + P:
+			Show the parameter list of a class, method or function
+
+*   [Ctrl] + Q:
+			Show the Online Documentation for whatever is underneath your cursor.
 
 *   [Ctrl + Shift] + Backspace
 			This will let your cursor jump to the last different Position it was
@@ -41,5 +48,6 @@
 *   [Ctrl] + Space:
 			This is AndroidStudios (and IntelliJ's) smart autocompletion.
 			It can be used to show public members and methods of a class,
-			to show the parameters of a Dart-Constructor and much more.
+			to show the parameters of a Dart-Constructor and much more.import 'dart:collection';
+
 */
