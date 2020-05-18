@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
-import 'package:ninjaid/pages/movie_detail_page.dart';
 import 'package:ninjaid/pages/search_movies.dart';
+import 'package:ninjaid/widgets/movie_list_tile.dart';
 
 void main() {
+  print("App Installed");
   /*runApp(MaterialApp(
       home: NinjaCard()
   ));*/
   runApp(MovieApp());
 }
 
-class MovieApp extends StatefulWidget {
-  @override
-  _MovieAppState createState() => _MovieAppState();
-}
-
-class _MovieAppState extends State<MovieApp> {
+class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,21 +34,9 @@ class Home extends StatelessWidget {
           centerTitle: false,
         ),
         body: new ListView.separated(
-          //TODO Let the itemCount be determined dynamically (e.g. by the length of the list we're using)
-          itemCount: 3,
-          //TODO Create a custom MovieListTile, which takes one Movie as
-          // construction parameter and creates a ListTile with a more
-          // information than we currently have.
-          // (/lib/widgets/movie_list_tile.dart)
-          itemBuilder: (context, index) => ListTile(
-            title: Text(movies[index].title),
-            subtitle: Text(
-                'Directed by ${movies[index].director} in ${movies[index].year}'),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MovieDetailPage(movies[index])));
-            },
-            leading: Image.network(movies[index].poster),
+          itemCount: movies.length,
+          itemBuilder: (context, index) => MovieListTile(
+            movie: movies[index],
           ),
           separatorBuilder: (context, index) {
             return Divider(

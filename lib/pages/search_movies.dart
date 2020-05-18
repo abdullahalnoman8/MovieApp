@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/utilities/movie_db.dart';
+import 'package:ninjaid/widgets/movie_list_tile.dart';
 
 class SearchMovie extends StatefulWidget {
   @override
@@ -25,19 +26,31 @@ class _SearchMovieState extends State<SearchMovie> {
         title: Text('Search Movie'),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
             controller: textEditingController,
           ),
           //TODO Create a ListView which will shows all the Movies that match our search.
           //TODO Create a Custom MovieListTile Widget for that purpose. (the same we use in the HomePage)
+
+          ListView.builder(
+            itemCount: movieList.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) => MovieListTile(
+              movie: movieList[index],
+            ),
+          )
         ],
       ),
     );
   }
 
   searchMovies() {
-    //TODO Add the movies we've been searching into the movieList
-    MovieDB().searchMovies(textEditingController.value.text);
+    MovieDB().searchMovies(textEditingController.value.text).then((value) {
+      setState(() {
+        movieList = value;
+      });
+    });
   }
 }
