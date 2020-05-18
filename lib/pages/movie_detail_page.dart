@@ -28,7 +28,7 @@ class MovieDetailPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Image.network(movie.imageUrl),
+              Image.network(movie.poster),
               Row(
 //              mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,

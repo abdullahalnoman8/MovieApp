@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => MovieDetailPage(movies[index])));
             },
-            leading: Image.network(movies[index].imageUrl),
+            leading: Image.network(movies[index].poster),
           ),
           separatorBuilder: (context, index) {
             return Divider(
