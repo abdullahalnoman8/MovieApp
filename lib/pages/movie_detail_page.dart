@@ -18,7 +18,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     // TODO: Write movie details into this widget then set loaded as true
-    MovieDB().getMovieDetails(imdbID: "", name: "").then((value) {
+    MovieDB().getMovieDetails(imdbID: "", name: "snitch").then((value) {
       setState(() {
         movie = value;
         isLoaded = true;
