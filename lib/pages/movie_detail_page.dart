@@ -45,13 +45,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           elevation: 24.0,
           child: isLoaded
               ? Column(
-//          mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Image.network(widget.movie.poster),
+                    Expanded(child: Image.network(widget.movie.poster)),
                     Row(
-//              mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -74,8 +72,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         ),
                       ],
                     ),
-//            Text(movie.name),
-//            Text('${movie.year}'),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
