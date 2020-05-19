@@ -13,14 +13,15 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  Movie movie = null;
+  Movie movie;
   bool isLoaded = false;
   @override
   void initState() {
     // TODO: Write movie details into this widget then set loaded as true
-    MovieDB().getMovieDetails(imdbID: "", name: "snitch").then((value) {
+    MovieDB().getMovieDetails(imdbID: widget.movie.imdbId).then((value) {
       setState(() {
         movie = value;
+        print(movie);
         isLoaded = true;
       });
     });
@@ -29,21 +30,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoaded
-        ? Scaffold(
-            appBar: AppBar(
-              title: Text('${widget.movie.title} Details '),
-              backgroundColor: Colors.indigo[500],
-              elevation: 0,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                elevation: 24.0,
-                child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${widget.movie.title} Details '),
+        backgroundColor: Colors.indigo[500],
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 24.0,
+          child: isLoaded
+              ? Column(
 //          mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,17 +94,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           Text(
                             widget.movie.description,
                             textAlign: TextAlign.justify,
-                          )
+                          ),
+                          // todo add the raging widget here
                         ],
                       ),
                     ),
                   ],
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
                 ),
-              ),
-            ),
-          )
-        : CircularProgressIndicator(
-            // todo update with the property
-            );
+        ),
+      ),
+    );
   }
 }

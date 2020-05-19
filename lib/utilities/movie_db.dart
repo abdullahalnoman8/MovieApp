@@ -10,7 +10,6 @@ class MovieDB {
   final HttpClient _httpClient = new HttpClient();
   Client http = new Client();
   Map<String, dynamic> jsonData;
-  Movie jsonDataOfMovie;
   MovieDB._internal();
 
   factory MovieDB() {
@@ -46,21 +45,22 @@ class MovieDB {
   }
 
   //TODO Create an API-Call to get movie Details based on the IMDB-ID or the movie name
-  Future<Movie> getMovieDetails({String imdbID, String name}) async {
+  Future<Movie> getMovieDetails({String imdbID, String title}) async {
     //TODO Make sure at least one of the parameters is passed in. If both are provided use the imdbID
     Movie movie;
-    if (imdbID != null && name != null) {
+    Map<String, dynamic> jsonDataOfMovie;
+    if (imdbID != null) {
       var response = await http.get(Uri.parse('${_url}i=$imdbID'));
       if (response.statusCode == 200) {
-        jsonDataOfMovie = jsonDecode([] as Movie ?? "");
+        jsonDataOfMovie = jsonDecode(response.body);
         movie = Movie.fromJson(jsonDataOfMovie);
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }
-    } else if (imdbID != null || name != null) {
-      var response = await http.get(Uri.parse('${_url}n=$name'));
+    } else if (title != null) {
+      var response = await http.get(Uri.parse('${_url}t=$title'));
       if (response.statusCode == 200) {
-        jsonDataOfMovie = jsonDecode([] as Movie ?? "");
+        jsonDataOfMovie = jsonDecode(response.body);
         movie = Movie.fromJson(jsonDataOfMovie);
       } else {
         print('Request failed with status: ${response.statusCode}.');
