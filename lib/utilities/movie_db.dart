@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:ninjaid/model/movie.dart';
 
 class MovieDB {
   static final MovieDB _movieDB = MovieDB._internal();
   final String _url = "http://www.omdbapi.com/?apikey=fc2dadc1&";
-  final HttpClient _httpClient = new HttpClient();
-  Client http = new Client();
+//  final HttpClient _httpClient = new HttpClient();
+//  Client http = new Client();
   Map<String, dynamic> jsonData;
   MovieDB._internal();
 
@@ -49,16 +48,18 @@ class MovieDB {
     //TODO Make sure at least one of the parameters is passed in. If both are provided use the imdbID
     Movie movie;
     Map<String, dynamic> jsonDataOfMovie;
-    if (imdbID != null) {
-      var response = await http.get(Uri.parse('${_url}i=$imdbID'));
+    if (imdbID != null || imdbID.isNotEmpty) {
+      var response = await http.get('${_url}i=$imdbID');
+      print("Network Response: ${response.body}");
       if (response.statusCode == 200) {
         jsonDataOfMovie = jsonDecode(response.body);
         movie = Movie.fromJson(jsonDataOfMovie);
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }
-    } else if (title != null) {
-      var response = await http.get(Uri.parse('${_url}t=$title'));
+    } else if (title != null || title.isNotEmpty) {
+      var response = await http.get('${_url}t=$title');
+      print("Network Response : ${response.body}");
       if (response.statusCode == 200) {
         jsonDataOfMovie = jsonDecode(response.body);
         movie = Movie.fromJson(jsonDataOfMovie);

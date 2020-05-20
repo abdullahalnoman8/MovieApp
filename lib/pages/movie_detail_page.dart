@@ -4,9 +4,9 @@ import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/utilities/movie_db.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  final Movie movie;
+  final String imdbID;
 
-  const MovieDetailPage(this.movie, {Key key}) : super(key: key);
+  const MovieDetailPage({Key key, this.imdbID}) : super(key: key);
 
   @override
   _MovieDetailPageState createState() => _MovieDetailPageState();
@@ -17,8 +17,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   bool isLoaded = false;
   @override
   void initState() {
+    print("Calling Parameter:  ${widget.imdbID}");
     // TODO: Write movie details into this widget then set loaded as true
-    MovieDB().getMovieDetails(imdbID: widget.movie.imdbId).then((value) {
+    MovieDB().getMovieDetails(imdbID: widget.imdbID).then((value) {
       setState(() {
         movie = value;
         print(movie);
@@ -32,7 +33,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.movie.title} Details '),
+        title: Text('${movie?.title} Details '),
         backgroundColor: Colors.indigo[500],
         elevation: 0,
       ),
@@ -48,13 +49,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(child: Image.network(widget.movie.poster)),
+                    Expanded(child: Image.network(movie.poster)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.movie.title,
+                          movie.title,
                           style: TextStyle(
                             fontSize: 24.0,
                             shadows: [
@@ -66,7 +67,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           ),
                         ),
                         Text(
-                          ' (${widget.movie.year})',
+                          ' (${movie.year})',
                           style: TextStyle(
                               fontStyle: FontStyle.italic, fontSize: 24.0),
                         ),
@@ -80,7 +81,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Text(
-                              widget.movie.director,
+                              movie.director,
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w300,
@@ -88,9 +89,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                           ),
                           Text(
-                            widget.movie.description,
+                            movie.plot,
                             textAlign: TextAlign.justify,
                           ),
+
                           // todo add the raging widget here
                         ],
                       ),
@@ -98,7 +100,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   ],
                 )
               : Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.amberAccent,
+                  ),
                 ),
         ),
       ),

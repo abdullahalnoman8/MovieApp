@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 class Movie {
   final String title;
-  final String imdbId;
+  final String imdbID;
   final String year;
   final String director;
-  final String description;
   final String poster;
 
   final String rated;
@@ -31,7 +30,7 @@ class Movie {
 
   Movie({
     @required this.poster,
-    @required this.imdbId,
+    @required this.imdbID,
     @required this.title,
     @required this.year,
     @required this.type,
@@ -55,14 +54,13 @@ class Movie {
     this.website,
     this.response,
     this.director,
-    this.description,
   });
 
-  String get id => imdbId;
+  String get id => imdbID;
 
   factory Movie.fromJson(dynamic json) {
     return Movie(
-      imdbId: json['imdbId'] as String,
+      imdbID: json['imdbID'] as String,
       actors: json['Actors'] as String,
       awards: json['Awards'] as String,
       boxOffice: json['BoxOffice'] as String,
@@ -81,7 +79,6 @@ class Movie {
       director: json['Director'] as String,
       imdbVotes: json['imdbVotes'] as String,
       runTime: json['RunTime'] as String,
-      description: json['Description'] as String,
       title: json['Title'] as String,
       type: json['Type'] as String,
       website: json['Website'] as String,
@@ -98,13 +95,12 @@ class Movie {
 
   @override
   String toString() {
-    return 'Movie{title: $title, imdbId: $imdbId, year: $year, director: $director, '
-        'description: $description, poster: $poster, rated: $rated, released: $released,'
-        ' runTime: $runTime, genre: $genre, writer: $writer, actors: $actors,'
-        ' plot: $plot, language: $language, country: $country, awards: $awards, '
-        'ratings: $ratings, metaCore: $metaCore, imdbRating: $imdbRating, '
-        'imdbVotes: $imdbVotes, type: $type, dvd: $dvd, boxOffice: $boxOffice,'
-        ' production: $production, website: $website, response: $response}';
+    return 'Movie{title: $title, imdbID: $imdbID, year: $year, director: $director, '
+        'poster: $poster, rated: $rated, released: $released, runTime: $runTime, '
+        'genre: $genre, writer: $writer, actors: $actors, plot: $plot, language: $language,'
+        ' country: $country, awards: $awards, ratings: $ratings, metaCore: $metaCore,'
+        ' imdbRating: $imdbRating, imdbVotes: $imdbVotes, type: $type, dvd: $dvd,'
+        ' boxOffice: $boxOffice, production: $production, website: $website, response: $response}';
   }
 }
 
@@ -120,12 +116,12 @@ class Rating {
 }
 
 Movie topGun = Movie(
-    imdbId: "",
+    imdbID: "tt0092099",
     type: "movie",
     title: "Top Gun",
     year: "1986",
     director: "Tony Scott",
-    description:
+    plot:
         "As students at the United States Navy's elite fighter weapons school compete "
         "to be best in the class, one daring young pilot learns a few things from a"
         " civilian instructor that are not taught in the classroom.",
@@ -133,12 +129,12 @@ Movie topGun = Movie(
         "https://m.media-amazon.com/images/M/MV5BZjQxYTA3ODItNzgxMy00N2Y2LWJlZGMtMTRlM2JkZjI1ZDhhXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SY1000_CR0,0,646,1000_AL_.jpg");
 
 Movie aBeautifulMind = Movie(
-    imdbId: "",
+    imdbID: "tt0268978",
     type: "movie",
     title: "A Beautiful Mind",
     year: "2001",
     director: "John Howard",
-    description:
+    plot:
         "After John Nash, a brilliant but asocial mathematician, accepts secret work"
         " in cryptography, his life takes a turn for the nightmarish.",
     poster:
@@ -146,12 +142,12 @@ Movie aBeautifulMind = Movie(
         "MzVjMDVmNjY0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,673,1000_AL_.jpg");
 
 Movie theImitationGame = Movie(
-    imdbId: "",
+    imdbID: "tt2084970",
     type: "movie",
     title: "The Imitation Game",
     year: "2014",
     director: "Morten Tyldum",
-    description:
+    plot:
         "During World War II, the English mathematical genius Alan Turing tries to "
         "crack the German Enigma code with help from fellow mathematicians.",
     poster:

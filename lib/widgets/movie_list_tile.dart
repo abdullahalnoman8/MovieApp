@@ -11,12 +11,15 @@ class MovieListTile extends StatelessWidget {
   const MovieListTile({Key key, @required this.movie}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print("Movie Data: $movie");
     return ListTile(
       title: Text(movie.title),
       subtitle: Text('Directed by ${movie.director} in ' + movie.year),
       onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => MovieDetailPage(movie)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MovieDetailPage(
+                  imdbID: movie.imdbID,
+                )));
       },
       leading: Image.network(movie.poster),
     );
