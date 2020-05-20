@@ -113,6 +113,11 @@ class Rating {
   factory Rating.fromJson(dynamic json) {
     return Rating(json['Source'] as String, json['Value'] as String);
   }
+
+  @override
+  String toString() {
+    return 'Rating{source: $source, value: $value}';
+  }
 }
 
 Movie topGun = Movie(

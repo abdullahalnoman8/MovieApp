@@ -22,7 +22,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     MovieDB().getMovieDetails(imdbID: widget.imdbID).then((value) {
       setState(() {
         movie = value;
-//        print(movie);
         print("Movie Data: $movie");
         isLoaded = true;
       });
@@ -43,31 +42,152 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               ? Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Row(
-                        // Todo Image and few details of the movie will be shown here
-                        children: <Widget>[
-                          Expanded(child: Image.network(movie.poster)),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Title: ${movie.title}',
-                                  ),
-                                  Text('Year : ${movie.year}'),
-                                  Text('Genre : ${movie.genre}'),
-                                  Text('Writer: ${movie.writer}'),
-                                  Text("Director: ${movie.director}"),
-                                  Text("ImdbID: ${movie.imdbID}")
-                                ],
+                      IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // Todo Image and few details of the movie will be shown here
+                          children: <Widget>[
+                            Expanded(child: Image.network(movie.poster)),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      '${movie.title}',
+                                      style: TextStyle(
+                                          fontSize: 24.0,
+                                          shadows: [
+                                            Shadow(
+                                                offset: Offset(2, 2),
+                                                blurRadius: 7,
+                                                color: Colors.grey[700])
+                                          ]),
+                                    ),
+                                    Text(
+                                      '${movie.year}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 24.0),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          'Genre :',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(' ${movie.genre}'),
+                                      ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Writer:",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: " ${movie.writer}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                          ]),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          'Released: ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text('${movie.released}'),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          'Language:',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(' ${movie.language}'),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          'Country:',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(' ${movie.country}'),
+                                      ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Awards:",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: " ${movie.awards}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                          ]),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          'Runtime:',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(' ${movie.runtimeType}'),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          "Director:",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(" ${movie.director}"),
+                                      ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Actors:",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: " ${movie.actors}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                          ]),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10.0,
@@ -75,6 +195,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       Column(
                         // Todo Add the Description Of the Movie here
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Text(
                             'Description: ',
@@ -120,8 +241,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     ],
                   ),
                 )
-              : CircularProgressIndicator(
-                  backgroundColor: Colors.amberAccent,
+              : Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.amberAccent,
+                  ),
                 ),
         )
         /*Padding(
