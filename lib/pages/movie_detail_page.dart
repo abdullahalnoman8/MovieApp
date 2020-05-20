@@ -22,7 +22,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     MovieDB().getMovieDetails(imdbID: widget.imdbID).then((value) {
       setState(() {
         movie = value;
-        print(movie);
+//        print(movie);
+        print("Movie Data: $movie");
         isLoaded = true;
       });
     });
@@ -32,12 +33,98 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${movie?.title} Details '),
-        backgroundColor: Colors.indigo[500],
-        elevation: 0,
-      ),
-      body: Padding(
+        appBar: AppBar(
+          title: Text('${movie?.title} Details '),
+          backgroundColor: Colors.indigo[500],
+          elevation: 0,
+        ),
+        body: Container(
+          child: isLoaded
+              ? Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        // Todo Image and few details of the movie will be shown here
+                        children: <Widget>[
+                          Expanded(child: Image.network(movie.poster)),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Title: ${movie.title}',
+                                  ),
+                                  Text('Year : ${movie.year}'),
+                                  Text('Genre : ${movie.genre}'),
+                                  Text('Writer: ${movie.writer}'),
+                                  Text("Director: ${movie.director}"),
+                                  Text("ImdbID: ${movie.imdbID}")
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Column(
+                        // Todo Add the Description Of the Movie here
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Description: ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18.0,
+                                wordSpacing: 1.0),
+                          ),
+                          Text(
+                            '${movie.plot}',
+                            textAlign: TextAlign.justify,
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 20.0),
+                      Row(
+                        // TODO Add the review and other things into this block as footer of the page
+                        children: <Widget>[
+                          Text('Review: '),
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.star,
+                                color: Colors.lightBlue,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.lightBlue,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.lightBlue,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.lightBlue,
+                              ),
+                            ],
+                          ),
+                          Text('Another Part'),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              : CircularProgressIndicator(
+                  backgroundColor: Colors.amberAccent,
+                ),
+        )
+        /*Padding(
         padding: const EdgeInsets.all(24.0),
         child: Card(
           clipBehavior: Clip.antiAlias,
@@ -105,7 +192,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   ),
                 ),
         ),
-      ),
-    );
+      ),*/
+        );
   }
 }
