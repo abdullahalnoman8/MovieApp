@@ -22,7 +22,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     MovieDB().getMovieDetails(imdbID: widget.imdbID).then((value) {
       setState(() {
         movie = value;
-        print("Movie Data: $movie");
+//        print("Movie Data: $movie");
         isLoaded = true;
       });
     });
@@ -70,10 +70,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       child: Column(
                                         children: <Widget>[
                                           Expanded(
-                                              child: Image.network(
-                                            movie.poster,
-                                            fit: BoxFit.fill,
-                                          ))
+                                            child: Image.network(
+                                              movie.poster,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -107,30 +108,35 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                               fontStyle: FontStyle.italic,
                                               fontSize: 24.0),
                                         ),
-                                        Row(
-                                          children: <Widget>[
-                                            Text(
-                                              'Genre :',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                                movie.genre ?? 'Not Available'),
-                                          ],
+                                        RichText(
+                                          text: TextSpan(
+                                            text: "Genre:",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: " ${movie.genre}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal)),
+                                            ],
+                                          ),
                                         ),
                                         RichText(
                                           text: TextSpan(
-                                              text: "Writer:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: " ${movie.writer}",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                              ]),
+                                            text: "Writer:",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: " ${movie.writer}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal)),
+                                            ],
+                                          ),
                                         ),
                                         Row(
                                           children: <Widget>[

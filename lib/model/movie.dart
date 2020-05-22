@@ -1,31 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'movie.g.dart';
+
+@JsonSerializable()
 class Movie {
+  @JsonKey(name: 'Title')
   final String title;
-  final String imdbID;
+  @JsonKey(name: 'Year')
   final String year;
-  final String director;
-  final String poster;
-
+  @JsonKey(name: 'Rated')
   final String rated;
+  @JsonKey(name: 'imdbID')
+  final String imdbID;
+  @JsonKey(name: 'Director')
+  final String director;
+
+  @JsonKey(name: 'Poster')
+  final String poster;
+  @JsonKey(name: 'Released')
   final String released;
+  @JsonKey(name: 'Runtime')
   final String runTime;
+  @JsonKey(name: 'Genre')
   final String genre;
+  @JsonKey(name: 'Writer')
   final String writer;
+  @JsonKey(name: 'Actors')
   final String actors;
+  @JsonKey(name: 'Plot')
   final String plot;
+  @JsonKey(name: 'Language')
   final String language;
+  @JsonKey(name: 'Country')
   final String country;
+  @JsonKey(name: 'Awards')
   final String awards;
+  @JsonKey(name: 'Ratings')
   final List<Rating> ratings;
+  @JsonKey(name: 'Metascore')
   final String metaCore;
+  @JsonKey(name: 'imdbRating')
   final String imdbRating;
+  @JsonKey(name: 'imdbVotes')
   final String imdbVotes;
+  @JsonKey(name: 'Type')
   final String type;
+  @JsonKey(name: 'DVD')
   final String dvd;
+  @JsonKey(name: 'BoxOffice')
   final String boxOffice;
+  @JsonKey(name: 'Production')
   final String production;
+  @JsonKey(name: 'Website')
   final String website;
+  @JsonKey(name: 'Response')
   final String response;
 
   Movie({
@@ -58,61 +87,78 @@ class Movie {
 
   String get id => imdbID;
 
-  factory Movie.fromJson(dynamic json) {
-    return Movie(
-      imdbID: json['imdbID'] as String,
-      actors: json['Actors'] as String,
-      awards: json['Awards'] as String,
-      boxOffice: json['BoxOffice'] as String,
-      country: json['Country'] as String,
-      dvd: json['DVD'] as String,
-      genre: json['Genre'] as String,
-      language: json['Language'] as String,
-      plot: json['Plot'] as String,
-      production: json['Production'] as String,
-      imdbRating: json['imdbRating'] as String,
-      released: json['Released'] as String,
-      rated: json['Rated'] as String,
-      metaCore: json['MetaCore'] as String,
-      poster: json['Poster'] as String,
-      response: json['Response'] as String,
-      director: json['Director'] as String,
-      imdbVotes: json['imdbVotes'] as String,
-      runTime: json['Runtime'] as String,
-      title: json['Title'] as String,
-      type: json['Type'] as String,
-      website: json['Website'] as String,
-      writer: json['Writer'] as String,
-      year: json['Year'] as String,
-      ratings: json['Ratings'] != null
-          ? <Rating>[
-              for (var rating in json['Ratings'] as List)
-                Rating.fromJson(rating),
-            ]
-          : List<Rating>(),
-    );
-  }
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
 
   @override
   String toString() {
-    return 'Movie{title: $title, imdbID: $imdbID, year: $year, director: $director, '
-        'poster: $poster, rated: $rated, released: $released, runTime: $runTime, '
-        'genre: $genre, writer: $writer, actors: $actors, plot: $plot, language: $language,'
-        ' country: $country, awards: $awards, ratings: $ratings, metaCore: $metaCore,'
-        ' imdbRating: $imdbRating, imdbVotes: $imdbVotes, type: $type, dvd: $dvd,'
-        ' boxOffice: $boxOffice, production: $production, website: $website, response: $response}';
+    return 'Movie{title: $title, year: $year, rated: $rated, imdbID: $imdbID, '
+        'director: $director, poster: $poster, released: $released, runTime: $runTime,'
+        ' genre: $genre, writer: $writer, actors: $actors, plot: $plot, '
+        'language: $language, country: $country, awards: $awards, ratings: $ratings,'
+        ' metaCore: $metaCore, imdbRating: $imdbRating, imdbVotes: $imdbVotes, '
+        'type: $type, dvd: $dvd, boxOffice: $boxOffice, production: $production, '
+        'website: $website, response: $response}';
   }
+
+//  factory Movie.fromJson(dynamic json) {
+//    return Movie(
+//      imdbID: json['imdbID'] as String,
+//      actors: json['Actors'] as String,
+//      awards: json['Awards'] as String,
+//      boxOffice: json['BoxOffice'] as String,
+//      country: json['Country'] as String,
+//      dvd: json['DVD'] as String,
+//      genre: json['Genre'] as String,
+//      language: json['Language'] as String,
+//      plot: json['Plot'] as String,
+//      production: json['Production'] as String,
+//      imdbRating: json['imdbRating'] as String,
+//      released: json['Released'] as String,
+//      rated: json['Rated'] as String,
+//      metaCore: json['MetaCore'] as String,
+//      poster: json['Poster'] as String,
+//      response: json['Response'] as String,
+//      director: json['Director'] as String,
+//      imdbVotes: json['imdbVotes'] as String,
+//      runTime: json['Runtime'] as String,
+//      title: json['Title'] as String,
+//      type: json['Type'] as String,
+//      website: json['Website'] as String,
+//      writer: json['Writer'] as String,
+//      year: json['Year'] as String,
+//      ratings: json['Ratings'] != null
+//          ? <Rating>[
+//              for (var rating in json['Ratings'] as List)
+//                Rating.fromJson(rating),
+//            ]
+//          : List<Rating>(),
+//    );
+//  }
+//
+//  @override
+//  String toString() {
+//    return 'Movie{title: $title, imdbID: $imdbID, year: $year, director: $director, '
+//        'poster: $poster, rated: $rated, released: $released, runTime: $runTime, '
+//        'genre: $genre, writer: $writer, actors: $actors, plot: $plot, language: $language,'
+//        ' country: $country, awards: $awards, ratings: $ratings, metaCore: $metaCore,'
+//        ' imdbRating: $imdbRating, imdbVotes: $imdbVotes, type: $type, dvd: $dvd,'
+//        ' boxOffice: $boxOffice, production: $production, website: $website, response: $response}';
+//  }
+
 }
 
+@JsonSerializable()
 class Rating {
+  @JsonKey(name: 'Source')
   final String source;
-
+  @JsonKey(name: 'Value')
   final String value;
 
   Rating(this.source, this.value);
-  factory Rating.fromJson(dynamic json) {
-    return Rating(json['Source'] as String, json['Value'] as String);
-  }
+
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
+  Map<String, dynamic> toJson() => _$RatingToJson(this);
 
   @override
   String toString() {
