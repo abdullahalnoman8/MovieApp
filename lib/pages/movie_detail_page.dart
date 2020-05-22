@@ -38,6 +38,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           elevation: 0,
         ),
         body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(
+                  0.8, 0.0), // 10% of the width, so there are ten blinds.
+              colors: [
+                const Color(0xFFFFFFEE),
+                const Color(0xFF999999)
+              ], // whitish to gray
+              tileMode: TileMode.clamp, // repeats the gradient over the canvas
+            ),
+          ),
           child: isLoaded
               ? Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -51,21 +63,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Expanded(
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Expanded(
-                                              child:
-                                                  Image.network(movie.poster))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-//                                Expanded(child: Image.network(movie.poster)),
+//                                Expanded(
+//                                  child: Container(
+//                                    child: Padding(
+//                                      padding: const EdgeInsets.all(8.0),
+//                                      child: Column(
+//                                        children: <Widget>[
+//                                          Expanded(
+//                                              child:
+//                                                  Image.network(movie.poster))
+//                                        ],
+//                                      ),
+//                                    ),
+//                                  ),
+//                                ),
+                                Expanded(child: Image.network(movie.poster)),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -211,11 +223,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       Expanded(
                         flex: 2,
                         child: Container(
-                          decoration: const BoxDecoration(color: Colors.green),
                           child: Column(
                             // Todo Add the Description Of the Movie here
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
                                 'Description: ',
@@ -223,6 +234,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18.0,
                                     wordSpacing: 1.0),
+                              ),
+                              SizedBox(
+                                height: 10,
+                                width: 0,
                               ),
                               Text(
                                 '${movie.plot}',
@@ -235,7 +250,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       Expanded(
                         flex: 1,
                         child: Container(
-                          decoration: const BoxDecoration(color: Colors.blue),
                           child: Row(
                             // TODO Add the review and other things into this block as footer of the page
                             children: <Widget>[],
