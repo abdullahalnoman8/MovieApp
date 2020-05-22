@@ -35,11 +35,13 @@ class _SearchMovieState extends State<SearchMovie> {
             //TODO Create a ListView which will shows all the Movies that match our search.
             //TODO Create a Custom MovieListTile Widget for that purpose. (the same we use in the HomePage)
 
-            ListView.builder(
-              itemCount: movieList.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => MovieListTile(
-                movie: movieList[index],
+            Expanded(
+              child: ListView.builder(
+                itemCount: movieList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => MovieListTile(
+                  movie: movieList[index],
+                ),
               ),
             )
           ],
