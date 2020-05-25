@@ -19,7 +19,6 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   Movie movie;
   bool isLoaded = false;
-  int _counter = 0;
   @override
   void initState() {
     print("Calling Parameter:  ${widget.imdbID}");
@@ -40,15 +39,17 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   Future<File> _addMovieAsFavourite() {
+    List<Movie> movies = [];
     setState(() {
-      print(
-        "## Add Movie $movie ",
-        // TODO Concat Json String with the existing one and send the updated String to the file
-      );
+      print("## Add Movie $movie ");
+      // TODO Concat Json String with the existing one and send the updated String to the file
+      if (movie != null) {
+        movies.add(movie);
+      }
     });
-
+    print('Data to Pass: $movies');
     // Write the movie variable as a string to the file.
-    return widget.movieDataStorage.writeMovie(movie);
+    return widget.movieDataStorage.writeMovie(movies);
   }
 
   @override

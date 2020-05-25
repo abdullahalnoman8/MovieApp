@@ -16,13 +16,14 @@ class MovieDataStorage {
     return File('$path/moviedata.txt');
   }
 
-  Future<File> writeMovie(Movie movie) async {
+  Future<File> writeMovie(List<Movie> movie) async {
     final file = await _localFile;
 
 //    print("Data Written :: $movie");
     // Write the file.
+    print("To Write::::::::::::::::::::::::::::::: $movie");
     String jsonStringOfMovie = json.encode(movie);
-    print("Data Writen:::::::::::::::::::::$jsonStringOfMovie");
+    print("JSON Data To Write:::::::::::::::::::::$jsonStringOfMovie");
     return file.writeAsString('$jsonStringOfMovie');
   }
 
@@ -41,12 +42,14 @@ class MovieDataStorage {
       // Read the file.
       try {
         String data = await file.readAsString();
-        var ab = json.decode(data);
-        print('Decoded Stored Data: $ab');
-        Movie movie = Movie.fromJson(ab);
-        list.add(movie);
+        print('Data Found from the file: $data');
+        list = json.decode(data);
+//        print('Decoded Stored Data: $ab');
+//        print(ab);
+//        list = ab;
+//        list.add(data);
       } catch (e) {
-        print("@@ Exception Found-------------- $e");
+        print("@@ Data Reading Exception Found-------------- $e");
       }
       return list;
     } catch (e) {
