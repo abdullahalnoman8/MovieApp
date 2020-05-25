@@ -19,6 +19,7 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   Movie movie;
   bool isLoaded = false;
+  int _counter = 0;
   @override
   void initState() {
     print("Calling Parameter:  ${widget.imdbID}");
@@ -33,23 +34,20 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     widget.movieDataStorage.readMovie().then((value) {
       setState(() {
         print("###Reading From Storage: $value");
-//        listOfMovie.add(value as Movie);
-//        print(listOfMovie);
       });
     });
     super.initState();
   }
 
-  Future<File> _addMovie() {
+  Future<File> _addMovieAsFavourite() {
     setState(() {
-      List<Movie> listOfMovie = [];
       print(
         "## Add Movie $movie ",
+        // TODO Concat Json String with the existing one and send the updated String to the file
       );
-      listOfMovie.add(movie);
     });
 
-    // Write the variable as a string to the file.
+    // Write the movie variable as a string to the file.
     return widget.movieDataStorage.writeMovie(movie);
   }
 
@@ -299,7 +297,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   ),
                                 ),
                               RaisedButton(
-                                onPressed: _addMovie,
+                                onPressed: _addMovieAsFavourite,
                                 child: Text('Add Movie'),
                               )
                             ],
