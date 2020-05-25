@@ -100,52 +100,6 @@ class Movie {
         'type: $type, dvd: $dvd, boxOffice: $boxOffice, production: $production, '
         'website: $website, response: $response}';
   }
-
-//  factory Movie.fromJson(dynamic json) {
-//    return Movie(
-//      imdbID: json['imdbID'] as String,
-//      actors: json['Actors'] as String,
-//      awards: json['Awards'] as String,
-//      boxOffice: json['BoxOffice'] as String,
-//      country: json['Country'] as String,
-//      dvd: json['DVD'] as String,
-//      genre: json['Genre'] as String,
-//      language: json['Language'] as String,
-//      plot: json['Plot'] as String,
-//      production: json['Production'] as String,
-//      imdbRating: json['imdbRating'] as String,
-//      released: json['Released'] as String,
-//      rated: json['Rated'] as String,
-//      metaCore: json['MetaCore'] as String,
-//      poster: json['Poster'] as String,
-//      response: json['Response'] as String,
-//      director: json['Director'] as String,
-//      imdbVotes: json['imdbVotes'] as String,
-//      runTime: json['Runtime'] as String,
-//      title: json['Title'] as String,
-//      type: json['Type'] as String,
-//      website: json['Website'] as String,
-//      writer: json['Writer'] as String,
-//      year: json['Year'] as String,
-//      ratings: json['Ratings'] != null
-//          ? <Rating>[
-//              for (var rating in json['Ratings'] as List)
-//                Rating.fromJson(rating),
-//            ]
-//          : List<Rating>(),
-//    );
-//  }
-//
-//  @override
-//  String toString() {
-//    return 'Movie{title: $title, imdbID: $imdbID, year: $year, director: $director, '
-//        'poster: $poster, rated: $rated, released: $released, runTime: $runTime, '
-//        'genre: $genre, writer: $writer, actors: $actors, plot: $plot, language: $language,'
-//        ' country: $country, awards: $awards, ratings: $ratings, metaCore: $metaCore,'
-//        ' imdbRating: $imdbRating, imdbVotes: $imdbVotes, type: $type, dvd: $dvd,'
-//        ' boxOffice: $boxOffice, production: $production, website: $website, response: $response}';
-//  }
-
 }
 
 @JsonSerializable()

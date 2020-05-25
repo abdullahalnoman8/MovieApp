@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
+import 'package:ninjaid/utilities/movie_data_storage.dart';
 import 'package:ninjaid/utilities/movie_db.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final String imdbID;
+  final MovieDataStorage movieDataStorage = new MovieDataStorage();
 
-  const MovieDetailPage({Key key, this.imdbID}) : super(key: key);
+  MovieDetailPage({Key key, this.imdbID}) : super(key: key);
 
   @override
   _MovieDetailPageState createState() => _MovieDetailPageState();
@@ -26,7 +30,27 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         isLoaded = true;
       });
     });
+    widget.movieDataStorage.readMovie().then((value) {
+      setState(() {
+        print("###Reading From Storage: $value");
+//        listOfMovie.add(value as Movie);
+//        print(listOfMovie);
+      });
+    });
     super.initState();
+  }
+
+  Future<File> _addMovie() {
+    setState(() {
+      List<Movie> listOfMovie = [];
+      print(
+        "## Add Movie $movie ",
+      );
+      listOfMovie.add(movie);
+    });
+
+    // Write the variable as a string to the file.
+    return widget.movieDataStorage.writeMovie(movie);
   }
 
   @override
@@ -116,10 +140,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                                 color: Colors.black),
                                             children: <TextSpan>[
                                               TextSpan(
-                                                  text: " ${movie.genre}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal)),
+                                                text: " ${movie.genre}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -131,10 +156,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                                 color: Colors.black),
                                             children: <TextSpan>[
                                               TextSpan(
-                                                  text: " ${movie.writer}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal)),
+                                                text: " ${movie.writer}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -208,17 +234,19 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                         ),
                                         RichText(
                                           text: TextSpan(
-                                              text: "Actors:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: " ${movie.actors}",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                              ]),
+                                            text: "Actors:",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: " ${movie.actors}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -235,7 +263,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           child: Column(
                             // Todo Add the Description Of the Movie here
                             crossAxisAlignment: CrossAxisAlignment.start,
-//                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
                                 'Description: ',
@@ -270,7 +297,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       Text("Value: ${rating.value}"),
                                     ],
                                   ),
-                                )
+                                ),
+                              RaisedButton(
+                                onPressed: _addMovie,
+                                child: Text('Add Movie'),
+                              )
                             ],
                           ),
                         ),
