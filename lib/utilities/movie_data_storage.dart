@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:ninjaid/model/movie.dart';
@@ -18,9 +19,19 @@ class MovieDataStorage {
   Future<File> writeMovie(Movie movie) async {
     final file = await _localFile;
 
-    print("Data Written :: $movie");
+//    print("Data Written :: $movie");
     // Write the file.
-    return file.writeAsString('$movie');
+    String jsonStringOfMovie = json.encode(movie);
+    print("Data Writen:::::::::::::::::::::$jsonStringOfMovie");
+    return file.writeAsString('$jsonStringOfMovie');
+  }
+
+  Future<File> writeMovieList(List<Movie> movies) async {
+    final file = await _localFile;
+
+    // Write the file.
+    print("Data Written :: $movies");
+    return file.writeAsString('$movies');
   }
 
   Future<List<Movie>> readMovie() async {
@@ -28,9 +39,15 @@ class MovieDataStorage {
     try {
       final file = await _localFile;
       // Read the file.
-//      String contents = await file.readAsString();
-      list = (await file.readAsString()) as List<Movie>;
-      print("Reading the Data File :: $file -> $list");
+      try {
+        String data = await file.readAsString();
+        var ab = json.decode(data);
+        print('Decoded Stored Data: $ab');
+        Movie movie = Movie.fromJson(ab);
+        list.add(movie);
+      } catch (e) {
+        print("@@ Exception Found-------------- $e");
+      }
       return list;
     } catch (e) {
       // If encountering an error, return 0.
