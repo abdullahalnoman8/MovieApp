@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/pages/search_movies.dart';
+import 'package:ninjaid/utilities/movie_data_storage.dart';
 import 'package:ninjaid/widgets/movie_list_tile.dart';
 
 void main() {
@@ -15,15 +15,15 @@ void main() {
 class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home(),
+    return MovieDataStorage(
+      child: MaterialApp(
+        home: Home(),
+      ),
     );
   }
 }
 
 class Home extends StatelessWidget {
-  final List<Movie> movies = [topGun, aBeautifulMind, theImitationGame];
-
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[300],
@@ -34,9 +34,9 @@ class Home extends StatelessWidget {
           centerTitle: false,
         ),
         body: new ListView.separated(
-          itemCount: movies.length,
+          itemCount: MovieDataStorage.of(context).movies.length,
           itemBuilder: (context, index) => MovieListTile(
-            movie: movies[index],
+            movie: MovieDataStorage.of(context).movies[index],
           ),
           separatorBuilder: (context, index) {
             return Divider(

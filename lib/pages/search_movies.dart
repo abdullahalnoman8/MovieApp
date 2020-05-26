@@ -52,9 +52,10 @@ class _SearchMovieState extends State<SearchMovie> {
 
   searchMovies() {
     MovieDB().searchMovies(textEditingController.value.text).then((value) {
-      setState(() {
-        movieList = value;
-      });
+      if (this.mounted)
+        setState(() {
+          movieList = value;
+        });
     });
   }
 }

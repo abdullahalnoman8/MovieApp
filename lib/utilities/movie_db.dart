@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:ninjaid/model/movie.dart';
+import 'package:ninjaid/utilities/movie_data_storage.dart';
 
 class MovieDB {
   static final MovieDB _movieDB = MovieDB._internal();
@@ -44,11 +46,19 @@ class MovieDB {
   }
 
   //TODO Create an API-Call to get movie Details based on the IMDB-ID or the movie name
-  Future<Movie> getMovieDetails({String imdbID, String title}) async {
-    //TODO Make sure at least one of the parameters is passed in. If both are provided use the imdbID
+  Future<Movie> getMovieDetails(
+      {String imdbID, String title, BuildContext context}) async {
     Movie movie;
     Map<String, dynamic> jsonDataOfMovie;
     if (imdbID != null || imdbID.isNotEmpty) {
+      movie = MovieDataStorage.of(context).movies.firstWhere(
+            (element) => element.imdbID == imdbID,
+            orElse: () => null,
+          );
+      if (movie != null) {
+        print("Reading Movie from storage: $movie");
+        return movie;
+      }
       var response = await http.get('${_url}i=$imdbID&plot=full');
       print("Network Response: ${response.body}");
       if (response.statusCode == 200) {
@@ -58,6 +68,13 @@ class MovieDB {
         print('Request failed with status: ${response.statusCode}.');
       }
     } else if (title != null || title.isNotEmpty) {
+      movie = MovieDataStorage.of(context).movies.firstWhere(
+            (element) => element.title == title,
+            orElse: () => null,
+          );
+      if (movie != null) {
+        return movie;
+      }
       var response = await http.get('${_url}t=$title&plot=full');
       print("Network Response : ${response.body}");
       if (response.statusCode == 200) {

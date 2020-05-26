@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/model/movie.dart';
@@ -8,7 +6,6 @@ import 'package:ninjaid/utilities/movie_db.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final String imdbID;
-  final MovieDataStorage movieDataStorage = new MovieDataStorage();
 
   MovieDetailPage({Key key, this.imdbID}) : super(key: key);
 
@@ -23,37 +20,29 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     print("Calling Parameter:  ${widget.imdbID}");
     // TODO: Write movie details into this widget then set loaded as true
-    MovieDB().getMovieDetails(imdbID: widget.imdbID).then((value) {
+    super.initState();
+  }
+
+  _toggleFavouriteMovie() {
+    setState(() {
+      print("## Add Movie $movie ");
+      if (movie != null) {
+        MovieDataStorage.of(context).toggleMovie(movie);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    MovieDB()
+        .getMovieDetails(imdbID: widget.imdbID, context: context)
+        .then((value) {
       setState(() {
         movie = value;
 //        print("Movie Data: $movie");
         isLoaded = true;
       });
     });
-    widget.movieDataStorage.readMovie().then((value) {
-      setState(() {
-        print("###Reading From Storage: $value");
-      });
-    });
-    super.initState();
-  }
-
-  Future<File> _addMovieAsFavourite() {
-    List<Movie> movies = [];
-    setState(() {
-      print("## Add Movie $movie ");
-      // TODO Concat Json String with the existing one and send the updated String to the file
-      if (movie != null) {
-        movies.add(movie);
-      }
-    });
-    print('Data to Pass: $movies');
-    // Write the movie variable as a string to the file.
-    return widget.movieDataStorage.writeMovie(movies);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('${movie?.title} Details '),
@@ -93,9 +82,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       child: Column(
                                         children: <Widget>[
                                           Expanded(
-                                            child: Image.network(
-                                              movie.poster,
-                                              fit: BoxFit.fill,
+                                            child: Hero(
+                                              child: Image.network(
+                                                movie.poster,
+                                                fit: BoxFit.fill,
+                                              ),
+                                              tag: movie.poster,
                                             ),
                                           )
                                         ],
@@ -298,8 +290,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   ),
                                 ),
                               RaisedButton(
-                                onPressed: _addMovieAsFavourite,
-                                child: Text('Add Movie'),
+                                onPressed: _toggleFavouriteMovie,
+                                child: Icon(MovieDataStorage.of(context)
+                                        .containsMovie(movie)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border),
                               )
                             ],
                           ),

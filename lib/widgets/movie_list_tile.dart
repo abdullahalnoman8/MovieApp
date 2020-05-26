@@ -21,7 +21,10 @@ class MovieListTile extends StatelessWidget {
                   imdbID: movie.imdbID,
                 )));
       },
-      leading: Image.network(movie.poster),
+      leading: Hero(
+        child: Image.network(movie.poster),
+        tag: movie.poster,
+      ),
     );
   }
 }
