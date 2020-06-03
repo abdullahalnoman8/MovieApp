@@ -16,13 +16,6 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   Movie movie;
   bool isLoaded = false;
-  @override
-  void initState() {
-    print("Calling Parameter:  ${widget.imdbID}");
-    // TODO: Write movie details into this widget then set loaded as true
-
-    super.initState();
-  }
 
   _toggleFavouriteMovie() {
     setState(() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/pages/search_movies.dart';
 import 'package:ninjaid/utilities/movie_data_storage.dart';
-import 'package:ninjaid/widgets/movie_list_tile.dart';
+import 'package:ninjaid/widgets/movie_details_card.dart';
 
 void main() {
   print("App Installed");
@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
         ),
         body: new ListView.separated(
           itemCount: MovieDataStorage.of(context).movies.length,
-          itemBuilder: (context, index) => MovieListTile(
+          itemBuilder: (context, index) => MovieDetailsCard(
             movie: MovieDataStorage.of(context).movies[index],
           ),
           separatorBuilder: (context, index) {

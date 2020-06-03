@@ -3,9 +3,6 @@ import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/pages/movie_detail_page.dart';
 import 'package:ninjaid/utilities/movie_data_storage.dart';
 
-//TODO Create a List Tile that contains the movie poster as leading Widget,
-// Add the movie title, the year, the director, and all three ratings to be
-// displayed in this widget
 class MovieListTile extends StatelessWidget {
   final Movie movie;
 

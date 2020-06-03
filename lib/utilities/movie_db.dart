@@ -45,7 +45,6 @@ class MovieDB {
     return list;
   }
 
-  //TODO Create an API-Call to get movie Details based on the IMDB-ID or the movie name
   Future<Movie> getMovieDetails(
       {String imdbID, String title, BuildContext context}) async {
     Movie movie;
