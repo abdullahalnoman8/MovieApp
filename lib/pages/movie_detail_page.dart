@@ -20,6 +20,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     print("Calling Parameter:  ${widget.imdbID}");
     // TODO: Write movie details into this widget then set loaded as true
+
     super.initState();
   }
 
@@ -33,7 +34,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
     MovieDB()
         .getMovieDetails(imdbID: widget.imdbID, context: context)
         .then((value) {
@@ -43,6 +44,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         isLoaded = true;
       });
     });
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+//    final container = MovieDataStorage.of(context);
+//    print('Container: {$container}');
+
     return Scaffold(
         appBar: AppBar(
           title: Text('${movie?.title} Details '),
@@ -87,7 +96,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                                 movie.poster,
                                                 fit: BoxFit.fill,
                                               ),
-                                              tag: movie.poster,
+                                              tag: movie.imdbID,
                                             ),
                                           )
                                         ],
@@ -252,7 +261,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         flex: 2,
                         child: Container(
                           child: Column(
-                            // Todo Add the Description Of the Movie here
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
@@ -266,10 +274,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 height: 10,
                                 width: 0,
                               ),
-                              Text(
-                                '${movie.plot}',
-                                textAlign: TextAlign.justify,
-                              )
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                    '${movie.plot}',
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),

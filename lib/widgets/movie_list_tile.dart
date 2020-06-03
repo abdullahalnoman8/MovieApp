@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/pages/movie_detail_page.dart';
+import 'package:ninjaid/utilities/movie_data_storage.dart';
 
 //TODO Create a List Tile that contains the movie poster as leading Widget,
 // Add the movie title, the year, the director, and all three ratings to be
@@ -16,14 +17,18 @@ class MovieListTile extends StatelessWidget {
       title: Text(movie.title),
       subtitle: Text('Directed by ${movie.director} in ' + movie.year),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MovieDetailPage(
-                  imdbID: movie.imdbID,
-                )));
+        Navigator.of(context)
+            .push(MaterialPageRoute(
+                builder: (context) => MovieDetailPage(
+                      imdbID: movie.imdbID,
+                    )))
+            .then((value) => MovieDataStorage.of(context).setState(
+                  () {},
+                ));
       },
       leading: Hero(
         child: Image.network(movie.poster),
-        tag: movie.poster,
+        tag: movie.imdbID,
       ),
     );
   }
