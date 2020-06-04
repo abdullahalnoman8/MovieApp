@@ -41,24 +41,131 @@ class MovieDetailsCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: movie.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 20.0),
-                      ),
-                    ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: movie.title + '(' + movie.year + ')',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 20.0),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 1,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Directed By ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: movie.director,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Released in ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: movie.released,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Movie type: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Movie type: ' + movie.genre,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Written By: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: movie.writer,
+                        ),
+                      ],
+                    ),
+                    maxLines: 6,
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Artist: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(text: movie.actors),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
