@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ninjaid/model/movie.dart';
-import 'package:ninjaid/pages/movie_detail_page.dart';
-import 'package:ninjaid/utilities/movie_data_storage.dart';
+import 'package:ninjaid/repository/movie_data_storage.dart';
+import 'package:ninjaid/views/movie_detail_page.dart';
 
 class MovieListTile extends StatelessWidget {
   final Movie movie;

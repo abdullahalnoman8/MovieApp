@@ -6,19 +6,9 @@ import 'package:ninjaid/model/movie.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MovieDataStorage extends StatefulWidget {
-//  static final MovieDataStorage _movieDataStorage =
-//      MovieDataStorage._internal();
-
   final Widget child;
 
   MovieDataStorage({@required this.child});
-  //  factory MovieDataStorage() {
-//    return _movieDataStorage;
-//  }
-
-//  MovieDataStorage._internal() {
-//    _readMovies();
-//  }
 
   static MovieDataStorageState of(BuildContext context) {
     return context

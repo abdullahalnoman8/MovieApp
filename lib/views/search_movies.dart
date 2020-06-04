@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:ninjaid/bloc/movie_bloc.dart';
+import 'package:ninjaid/bloc/movie_db.dart';
 import 'package:ninjaid/model/movie.dart';
-import 'package:ninjaid/utilities/movie_db.dart';
 import 'package:ninjaid/widgets/movie_gridveiw_widget.dart';
 
 class SearchMovie extends StatefulWidget {
+  final String movieName;
+
+  const SearchMovie({Key key, this.movieName}) : super(key: key);
+
   @override
   _SearchMovieState createState() => _SearchMovieState();
 }
 
 class _SearchMovieState extends State<SearchMovie> {
+  MovieBloc _movieBloc;
+
   TextEditingController textEditingController;
   List<Movie> movieList = [];
 
