@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ninjaid/model/movie.dart';
+import 'package:ninjaid/pages/movie_detail_page.dart';
+import 'package:ninjaid/utilities/movie_data_storage.dart';
 
 class MovieGridViewItem extends StatelessWidget {
   final Movie movie;
@@ -18,6 +20,18 @@ class MovieGridViewItem extends StatelessWidget {
             movie.poster,
             fit: BoxFit.fill,
           ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(
+                      builder: (context) => MovieDetailPage(
+                            imdbID: movie.imdbID,
+                          )))
+                  .then((value) => MovieDataStorage.of(context).setState(
+                        () {},
+                      ));
+            },
+          ),
           Positioned(
             bottom: 25,
             child: Container(
@@ -30,7 +44,7 @@ class MovieGridViewItem extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
