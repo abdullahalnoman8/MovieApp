@@ -53,9 +53,11 @@ class _SearchMovieState extends State<SearchMovie> {
                 child: GridView.builder(
               itemCount: movieList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 2.0,
-                  mainAxisSpacing: 2.0),
+                crossAxisCount: 2,
+                crossAxisSpacing: 2.0,
+                mainAxisSpacing: 12.0,
+                childAspectRatio: 13 / 16,
+              ),
               itemBuilder: (context, index) => MovieGridViewItem(
                 movie: movieList[index],
               ),
