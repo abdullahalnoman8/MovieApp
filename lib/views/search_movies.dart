@@ -13,15 +13,13 @@ class _SearchMovieState extends State<SearchMovie> {
   MovieBloc _movieBloc;
 
   TextEditingController textEditingController;
-  List<Movie> movieList = [];
-  Function onSearch;
 
   @override
   void initState() {
     super.initState();
     textEditingController = new TextEditingController();
-    textEditingController.addListener(onSearch);
-    _movieBloc = MovieBloc(textEditingController.value.text);
+    textEditingController.addListener(searchMovies);
+    _movieBloc = MovieBloc();
   }
 
   @override
@@ -47,112 +45,73 @@ class _SearchMovieState extends State<SearchMovie> {
                 ),
               ),
             ),
-
-            RefreshIndicator(
-              child: StreamBuilder<ApiResponse<List<Movie>>>(
-                stream: _movieBloc.movieListStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    switch (snapshot.data.status) {
-                      case Status.LOADING:
-                        return Loading(loadingMessage: snapshot.data.message);
-                        break;
-                      case Status.COMPLETED:
-                        movieList = snapshot.data.data;
-                        if (movieList.isEmpty) {
-                          return Container();
-                        } else {
-                          onSearch = _movieBloc
-                              .searchMovies(textEditingController.value.text);
-                          print('On Search: ' + onSearch.toString() + '');
-                          return searchMovies();
-                        }
-                        break;
-                      case Status.ERROR:
-                        return Error(
-                          errorMessage: snapshot.data.message,
-                          onRetryPressed: () => _movieBloc
-                              .searchMovies(textEditingController.value.text),
-                        );
-                        break;
+            SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                child: StreamBuilder<ApiResponse<List<Movie>>>(
+                  stream: _movieBloc.movieListStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      switch (snapshot.data.status) {
+                        case Status.LOADING:
+                          return Loading(loadingMessage: snapshot.data.message);
+                          break;
+                        case Status.COMPLETED:
+                          return MovieList(
+                            movieList: snapshot.data.data,
+                          );
+                          break;
+                        case Status.ERROR:
+                          return Error(
+                            errorMessage: snapshot.data.message,
+                            onRetryPressed: () => _movieBloc
+                                .searchMovies(textEditingController.value.text),
+                          );
+                          break;
+                      }
                     }
-                  }
-                  return Container();
+                    return Container();
+                  },
+                ),
+                onRefresh: () {
+                  return _movieBloc
+                      .searchMovies(textEditingController.value.text);
                 },
               ),
-              onRefresh: () {
-                return _movieBloc
-                    .searchMovies(textEditingController.value.text);
-              },
             ),
-//            Expanded(
-//              child: GridView.builder(
-//                itemCount: movieList.length,
-//                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                    crossAxisCount: 2,
-//                    crossAxisSpacing: 2.0,
-//                    mainAxisSpacing: 2.0,
-//                    childAspectRatio: 12 / 19),
-//                itemBuilder: (context, index) {
-//                  return MovieGridViewItem(
-//                    movie: movieList[index],
-//                  );
-//                },
-//              ),
-//            ),
           ],
         ),
       ),
     );
   }
 
-//  searchMovies() {
-//    MovieDB().searchMovies(textEditingController.value.text).then((value) {
-//      if (this.mounted)
-//        setState(() {
-//          movieList = value;
-//        });
-//    });
-//    _movieBloc.searchMovies(textEditingController.value.text);
-//  }
-
   searchMovies() {
-    GestureDetector(
-      onTap: () {
-        print(' Searching With : ' + textEditingController.value.text);
-        onSearch = _movieBloc.searchMovies(textEditingController.value.text);
-      },
-      child: MovieList(
-        movieList: movieList,
-        onTextType: _movieBloc.searchMovies(textEditingController.value.text),
-      ),
-    );
+    _movieBloc.searchMovies(textEditingController.value.text);
   }
 }
 
 class MovieList extends StatelessWidget {
   final List<Movie> movieList;
-  final Function onTextType;
 
-  const MovieList({Key key, this.movieList, this.onTextType}) : super(key: key);
+  const MovieList({Key key, this.movieList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        itemCount: movieList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
-            childAspectRatio: 12 / 19),
-        itemBuilder: (context, index) {
-          return MovieGridViewItem(
-            movie: movieList[index],
-          );
-        },
-        shrinkWrap: true,
-      ),
+    return GridView.builder(
+      itemCount: movieList.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 2.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 0.7),
+      itemBuilder: (context, index) {
+        return MovieGridViewItem(
+          movie: movieList[index],
+        );
+      },
+      shrinkWrap: true,
     );
   }
 }

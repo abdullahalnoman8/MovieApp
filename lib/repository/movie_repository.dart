@@ -4,8 +4,6 @@ import 'package:ninjaid/networking/api_base_helper.dart';
 class MovieRepository {
   ApiBaseHelper _helper = ApiBaseHelper();
 
-  Map<String, dynamic> jsonData;
-
   Future<List<Movie>> searchMovies(String name) async {
     List<Movie> list = List<Movie>();
     final response = await _helper.get('s=$name');

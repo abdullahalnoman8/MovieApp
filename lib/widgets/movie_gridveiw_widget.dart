@@ -24,12 +24,12 @@ class MovieGridViewItem extends StatelessWidget {
         children: [
           Image.network(
             movie.poster,
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.contain,
           ),
           Positioned(
             bottom: 25,
             child: Container(
-              width: MediaQuery.of(context).size.width / 2 - 17,
+              width: MediaQuery.of(context).size.width / 2,
               color: Color.fromRGBO(255, 255, 255, 0.7),
               child: Center(
                 child: Padding(

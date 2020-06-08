@@ -14,10 +14,9 @@ class MovieBloc {
   Stream<ApiResponse<List<Movie>>> get movieListStream =>
       _movieListController.stream;
 
-  MovieBloc(String name) {
+  MovieBloc() {
     _movieListController = StreamController<ApiResponse<List<Movie>>>();
     _movieRepository = MovieRepository();
-    searchMovies(name);
   }
 
   searchMovies(String name) async {
