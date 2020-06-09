@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/bloc/movie_db.dart';
+import 'package:ninjaid/bloc/movie_detail_bloc.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/repository/movie_data_storage.dart';
 
@@ -16,6 +17,7 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   Movie movie;
   bool isLoaded = false;
+  MovieDetailBloc _movieDetailBloc = new MovieDetailBloc();
 
   _toggleFavouriteMovie() {
     setState(() {
@@ -37,6 +39,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         isLoaded = true;
       });
     });
+    _movieDetailBloc.fetchMovieDetail(widget.imdbID);
     super.didChangeDependencies();
   }
 

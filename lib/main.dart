@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ninjaid/repository/movie_data_in_local_storage.dart';
 import 'package:ninjaid/repository/movie_data_storage.dart';
 import 'package:ninjaid/views/search_movies.dart';
 import 'package:ninjaid/widgets/movie_details_card.dart';
@@ -24,6 +25,7 @@ class MovieApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+  MovieDataInFileStorage movieDataInFileStorage = MovieDataInFileStorage();
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[300],
@@ -34,9 +36,9 @@ class Home extends StatelessWidget {
           centerTitle: false,
         ),
         body: new ListView.separated(
-          itemCount: MovieDataStorage.of(context).movies.length,
+          itemCount: movieDataInFileStorage.readMovies().length,
           itemBuilder: (context, index) => MovieDetailsCard(
-            movie: MovieDataStorage.of(context).movies[index],
+            movie: movieDataInFileStorage.readMovies()[index],
           ),
           separatorBuilder: (context, index) {
             return Divider(
