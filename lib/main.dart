@@ -25,7 +25,9 @@ class MovieApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  MovieDataInFileStorage movieDataInFileStorage = MovieDataInFileStorage();
+  final MovieDataInFileStorage movieDataInFileStorage =
+      MovieDataInFileStorage();
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[300],
@@ -36,9 +38,9 @@ class Home extends StatelessWidget {
           centerTitle: false,
         ),
         body: new ListView.separated(
-          itemCount: movieDataInFileStorage.readMovies().length,
+          itemCount: movieDataInFileStorage.movies.length,
           itemBuilder: (context, index) => MovieDetailsCard(
-            movie: movieDataInFileStorage.readMovies()[index],
+            movie: movieDataInFileStorage.movies[index],
           ),
           separatorBuilder: (context, index) {
             return Divider(

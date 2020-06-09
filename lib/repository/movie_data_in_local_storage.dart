@@ -7,6 +7,10 @@ import 'package:path_provider/path_provider.dart';
 class MovieDataInFileStorage {
   List movies = List<Movie>();
 
+  MovieDataInFileStorage() {
+    readMovies();
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 

@@ -7,7 +7,6 @@ class MovieRepository {
   Future<List<Movie>> searchMovies(String name) async {
     List<Movie> list = List<Movie>();
     final response = await _helper.get('s=$name');
-//    print("Response: " + response);
     List movieData = response['Search'] as List ?? [];
     for (var data in movieData) list.add(Movie.fromJson(data));
     return list;
