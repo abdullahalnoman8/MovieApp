@@ -33,7 +33,10 @@ class MovieDataInFileStorage {
     return file.writeAsString('$jsonStringOfMovie');
   }
 
-  readMovies() async {
+  Future<List<Movie>> readMovies() async {
+    if (movies.isNotEmpty) {
+      return movies;
+    }
     try {
       final file = await _localFile;
       // Read the file.
@@ -49,6 +52,8 @@ class MovieDataInFileStorage {
     } catch (e) {
       print(e);
     }
+
+    return movies;
   }
 
   addMovie(Movie movie) {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ninjaid/bloc/movie_db.dart';
 import 'package:ninjaid/bloc/movie_detail_bloc.dart';
 import 'package:ninjaid/model/movie.dart';
-import 'package:ninjaid/repository/movie_data_storage.dart';
+import 'package:ninjaid/networking/api_response.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final String imdbID;
@@ -23,31 +22,45 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     setState(() {
       print("## Add Movie $movie ");
       if (movie != null) {
-        MovieDataStorage.of(context).toggleMovie(movie);
+        _movieDetailBloc.toggleMovie(movie);
       }
     });
   }
 
   @override
-  void didChangeDependencies() {
-    MovieDB()
-        .getMovieDetails(imdbID: widget.imdbID, context: context)
-        .then((value) {
-      setState(() {
-        movie = value;
-//        print("Movie Data: $movie");
-        isLoaded = true;
-      });
-    });
-    _movieDetailBloc.fetchMovieDetail(widget.imdbID);
+  Future<void> didChangeDependencies() async {
+//    MovieDB()
+//        .getMovieDetails(imdbID: widget.imdbID, context: context)
+//        .then((value) {
+//      setState(() {
+//        movie = value;
+////        print("Movie Data: $movie");
+//        isLoaded = true;
+//      });
+//    });
+    movie = (await _movieDetailBloc.fetchMovieDetail(widget.imdbID));
+    StreamBuilder<ApiResponse<Movie>>(
+      stream: _movieDetailBloc.movieDetailStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          switch (snapshot.data.status) {
+            case Status.COMPLETED:
+              print('Completed');
+              return Text('Completed');
+              break;
+          }
+        }
+        return Text('Snapshot Data: ' + snapshot.data.message);
+      },
+    );
+    if (movie != null) {
+      isLoaded = true;
+    }
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-//    final container = MovieDataStorage.of(context);
-//    print('Container: {$container}');
-
     return Scaffold(
         appBar: AppBar(
           title: Text('${movie?.title} Details '),
@@ -286,7 +299,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         flex: 1,
                         child: Container(
                           child: Row(
-                            // TODO Add the review and other things into this block as footer of the page
                             children: <Widget>[
                               for (var rating in movie.ratings)
                                 Expanded(
@@ -299,10 +311,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 ),
                               RaisedButton(
                                 onPressed: _toggleFavouriteMovie,
-                                child: Icon(MovieDataStorage.of(context)
-                                        .containsMovie(movie)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border),
+                                child: Icon(
+                                    _movieDetailBloc.containsMovie(movie)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border),
                               )
                             ],
                           ),

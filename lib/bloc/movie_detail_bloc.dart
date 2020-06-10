@@ -23,6 +23,7 @@ class MovieDetailBloc {
     movieDetailSink.add(ApiResponse.loading('Fetching Details'));
     try {
       Movie details = await _movieDetailRepository.fetchMovieDetail(imdbID);
+      print('Movie Details: ' + details.toString());
       movieDetailSink.add(ApiResponse.completed(details));
     } catch (e) {
       movieDetailSink.add(ApiResponse.error(e.toString()));
@@ -32,5 +33,13 @@ class MovieDetailBloc {
 
   dispose() {
     _movieDetailController?.close();
+  }
+
+  void toggleMovie(Movie movie) {
+    _movieDetailRepository.toggleMovie(movie);
+  }
+
+  bool containsMovie(Movie movie) {
+    return _movieDetailRepository.containsMovie(movie);
   }
 }
