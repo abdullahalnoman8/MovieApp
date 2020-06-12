@@ -8,7 +8,7 @@ class MovieDetailRepository {
 
   Future<Movie> fetchMovieDetail(String imdbID) async {
     Movie movie;
-    Map<String, dynamic> jsonDataOfMovie;
+    var response;
     if (imdbID != null || imdbID.isNotEmpty) {
       movie = (await movieDataInFileStorage.readMovies()).firstWhere(
           (element) => element.imdbID == imdbID,
@@ -17,10 +17,10 @@ class MovieDetailRepository {
         print("Reading Movie from storage: $movie");
         return movie;
       }
-      var response = await _helper.get('i=$imdbID&plot=full');
+      response = await _helper.get('i=$imdbID&plot=full');
       print("Network Response: ${response.toString()}");
-      return movie = Movie.fromJson(response);
     }
+    return movie = Movie.fromJson(response);
   }
 
   void toggleMovie(Movie movie) {

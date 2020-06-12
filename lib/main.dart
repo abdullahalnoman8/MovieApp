@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ninjaid/repository/movie_data_in_local_storage.dart';
-import 'package:ninjaid/repository/movie_data_storage.dart';
 import 'package:ninjaid/views/search_movies.dart';
 import 'package:ninjaid/widgets/movie_details_card.dart';
 
@@ -18,10 +17,8 @@ void main() {
 class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MovieDataStorage(
-      child: MaterialApp(
-        home: Home(),
-      ),
+    return MaterialApp(
+      home: Home(),
     );
   }
 }

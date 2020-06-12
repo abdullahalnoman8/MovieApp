@@ -19,7 +19,7 @@ class MovieDataInFileStorage {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/moviedata.txt');
+    return File('$path/movieList.txt');
   }
 
   Future<File> writeMovies() async {
@@ -47,7 +47,7 @@ class MovieDataInFileStorage {
         movies = jsonData.map((e) => Movie.fromJson(e)).toList(growable: true);
         print("Movies Successfully Loaded from file: $movies");
       } catch (e) {
-        print("@@ Data Reading Exception Found-------------- $e");
+        print("-----------------File Reading Exception Found-------------- $e");
       }
     } catch (e) {
       print(e);
