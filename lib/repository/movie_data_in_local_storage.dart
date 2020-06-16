@@ -41,10 +41,13 @@ class MovieDataInFileStorage {
       final file = await _localFile;
       // Read the file.
       try {
-        String data = await file.readAsString();
-        print('Data Found from the file: $data');
-        var jsonData = json.decode(data) as List;
-        movies = jsonData.map((e) => Movie.fromJson(e)).toList(growable: true);
+        if (await file.exists()) {
+          String data = await file.readAsString();
+          print('Data Found from the file: $data');
+          var jsonData = json.decode(data) as List;
+          movies =
+              jsonData.map((e) => Movie.fromJson(e)).toList(growable: true);
+        }
         print("Movies Successfully Loaded from file: $movies");
       } catch (e) {
         print("-----------------File Reading Exception Found-------------- $e");

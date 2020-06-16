@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ninjaid/bloc/movie_bloc.dart';
 import 'package:ninjaid/model/movie.dart';
 import 'package:ninjaid/networking/api_response.dart';
+import 'package:ninjaid/widgets/api_response_error_widget.dart';
+import 'package:ninjaid/widgets/loading_widget.dart';
 import 'package:ninjaid/widgets/movie_gridveiw_widget.dart';
 
 class SearchMovie extends StatefulWidget {
@@ -56,7 +58,8 @@ class _SearchMovieState extends State<SearchMovie> {
                     if (snapshot.hasData) {
                       switch (snapshot.data.status) {
                         case Status.LOADING:
-                          return Loading(loadingMessage: snapshot.data.message);
+                          return LoadingWidget(
+                              loadingMessage: snapshot.data.message);
                           break;
                         case Status.COMPLETED:
                           return MovieList(
@@ -64,7 +67,7 @@ class _SearchMovieState extends State<SearchMovie> {
                           );
                           break;
                         case Status.ERROR:
-                          return Error(
+                          return ApiResponseErrorWidget(
                             errorMessage: snapshot.data.message,
                             onRetryPressed: () => _movieBloc
                                 .searchMovies(textEditingController.value.text),
@@ -112,74 +115,6 @@ class MovieList extends StatelessWidget {
         );
       },
       shrinkWrap: true,
-    );
-  }
-}
-
-class Error extends StatelessWidget {
-  final String errorMessage;
-
-  final Function onRetryPressed;
-
-  const Error({Key key, this.errorMessage, this.onRetryPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            errorMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
-          ),
-          SizedBox(height: 8),
-          RaisedButton(
-            color: Colors.redAccent,
-            child: Text(
-              'Retry',
-              style: TextStyle(
-//                color: Colors.white,
-                  ),
-            ),
-            onPressed: onRetryPressed,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class Loading extends StatelessWidget {
-  final String loadingMessage;
-
-  const Loading({Key key, this.loadingMessage}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            loadingMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-//              color: Colors.lightGreen,
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(height: 24),
-          CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreen),
-          ),
-        ],
-      ),
     );
   }
 }
