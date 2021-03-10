@@ -1,6 +1,5 @@
-# ninjaid
-
-A new Flutter application.
+# A Sample Flutter Application written in Dart.
+This application will add the favourites movies your application and even it can find the movies you want to see. 
 
 ## Getting Started
 
